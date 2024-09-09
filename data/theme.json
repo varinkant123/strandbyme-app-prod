@@ -1,0 +1,103 @@
+{
+    "colors": {
+      "primary": "#18181b",
+      "active": "#0d9488",
+      "success": "#16a34a",
+      "warning": "#facc15",
+      "danger": "#dc2626", 
+      "secondary": "",
+      "background": "#ffffff",
+      "text": "#18181b",
+      "textSecondaryOpacity": 0.5,
+      "gray": {
+        "T50": "#f9fafb", 
+        "T100": "#f3f4f6",
+        "T200": "#e5e7eb", 
+        "T300": "#d1d5db", 
+        "T400": "#9ca3af", 
+        "T500": "#6b7280", 
+        "T600": "#4b5563", 
+        "T700": "#374151", 
+        "T800": "#1f2937", 
+        "T900": "#111827"  
+      }
+    },
+    "spacing": {
+      "xs": 4,
+      "sm": 8,
+      "md": 16,
+      "lg": 24,
+      "xl": 32,
+      "xxl": 40
+    },
+    "fontSizes": {
+      "xxs": 12,
+      "xs": 14,
+      "sm": 16,
+      "md": 18,
+      "lg": 20,
+      "xl": 24,
+      "xxl": 28,
+      "xxxl": 32
+    },
+    "borderRadius": {
+      "md": 8
+    },
+    "letterSpacing": {
+      "tightextra": -0.75,
+      "tight": -0.5,
+      "normal": -0.25
+    },
+    "lineHeights": {
+      "dense": 1.125,
+      "normal": 1.250
+    },
+    "main":{
+      "paddingHorizontal": 24
+    },
+    "imageSizes": {
+      "sm": 48,
+      "md": 60,
+      "lg": 84
+    },
+    "class": {
+      "PageSecondaryContainer": {
+          "width": "100%",
+          "flex": 1,
+          "paddingBottom": 80,
+          "paddingHorizontal": 32,
+          "backgroundColor": "#ffffff",
+          "paddingTop": 24
+
+      },
+      "PageSecondaryTitle": {
+        "color": "#18181b",
+        "fontSize": 18,
+        "letterSpacing": -0.5,
+        "fontWeight": "bold",
+        "textAlign": "center",
+        "width": "100%"
+      },
+      "ContainerCard": {
+        "paddingHorizontal":24,
+        "paddingVertical": 16,
+        "borderRadius": 8,
+        "backgroundColor": "#fff",
+        "shadowColor": "#000",
+        "shadowOffset": { "width": 0, "height": 2 },
+        "shadowOpacity": 0.05,
+        "shadowRadius": 8,
+        "elevation": 3,
+        "borderWidth": 1,
+        "borderColor": "#f9fafb",
+        "marginBottom": 8,
+        "width": "100%"
+      },
+      "ContainerCardItem": {
+        "flexDirection": "row",
+        "alignItems": "flex-start",
+        "marginBottom": 24
+      }
+    }
+  }
+  

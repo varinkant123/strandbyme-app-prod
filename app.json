@@ -1,21 +1,35 @@
 {
   "expo": {
-    "name": "app",
+    "name": "Strand By Me",
     "slug": "app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo/logo-5-1024.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
+    "scheme": "app",
     "assetBundlePatterns": [
       "**/*"
     ],
+    "plugins": [
+      "expo-apple-authentication",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "15.0",
+            "useFrameworks": "static"
+          }
+        }
+      ],
+      ["sentry-expo"]
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.strandbyme.app",
+      "usesAppleSignIn": true,
+      "infoPlist": {
+        "LSApplicationQueriesSchemes": ["about", "http", "https"]
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -25,6 +39,17 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5de1430c-62f1-46c9-8712-281eb79bc7ff"
+      }
+    },
+    "fonts": [
+      {
+        "asset": "./assets/fonts/AntonSC-Regular.ttf",
+        "family": "Anton"
+      }
+    ]
   }
 }
