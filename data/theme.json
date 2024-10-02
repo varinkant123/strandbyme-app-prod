@@ -10,7 +10,8 @@
       "text": "#18181b",
       "textSecondaryOpacity": 0.5,
       "gray": {
-        "T50": "#f9fafb", 
+        "T50": "#f9f9fa", 
+        "T75": "#f5f6f7",
         "T100": "#f3f4f6",
         "T200": "#e5e7eb", 
         "T300": "#d1d5db", 
@@ -79,6 +80,16 @@
         "width": "100%"
       },
       "ContainerCard": {
+        "paddingHorizontal":24,
+        "paddingVertical": 16,
+        "borderRadius": 8,
+        "backgroundColor": "#ffffff",
+        "borderBottomWidth": 0,
+        "borderBottomColor": "#f9fafb",
+        "marginBottom": 8,
+        "width": "100%"
+      },
+      "ContainerCardOriginal": {
         "paddingHorizontal":24,
         "paddingVertical": 16,
         "borderRadius": 8,

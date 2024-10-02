@@ -11,12 +11,17 @@
       "distribution": "internal"
     },
     "production": {
-      "env": {
-        "SENTRY_AUTH_TOKEN": "{{SENTRY_AUTH_TOKEN}}"
+      "distribution": "store",
+      "ios": {
+        "resourceClass": "m-medium"
       }
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "varin@hey.com"
+      }
+    }
   }
 }

@@ -4,8 +4,6 @@ import theme from "../data/theme.json";
 import Spacer from "../components/UI/Spacer";
 import Button from "../components/UI/Button";
 import AuthBottomSheet from "../components/Auth/AuthBottomSheet";
-import GuideImage1 from "../components/Guide/GuideImage1";
-import GuideImage2 from "../components/Guide/GuideImage2";
 
 // -----------------------------------------------------------------------------------------------------------------------
 const PageWelcome = ({ navigation }) => {
@@ -34,7 +32,12 @@ const PageWelcome = ({ navigation }) => {
   return (
     <View style={styles.containerMain}>
       <View style={styles.containerImage}>
-        <GuideImage1 showTimer={false} />
+        {
+          <Image
+            source={require("../assets/logo/logo-5-1024.png")}
+            style={styles.image}
+          />
+        }
       </View>
       <View style={styles.container}>
         <Spacer height={24} />
@@ -88,11 +91,13 @@ const styles = StyleSheet.create({
 
   containerImage: {
     width: "100%",
-    height: 350,
-    backgroundColor: theme.colors.active,
+    height: 300,
+    // backgroundColor: theme.colors.active,
     justifyContent: "flex-end",
-    paddingBottom: 40,
+    alignItems: "center",
+    paddingBottom: 0,
     paddingHorizontal: 24,
+    // backgroundColor: theme.colors.gray.T75,
   },
 
   overlay: {
@@ -142,6 +147,10 @@ const styles = StyleSheet.create({
     height: "60%",
     // borderRadius: 24,
     // backgroundColor: "#fafafa",
+  },
+  image: {
+    width: 128,
+    height: 128,
   },
 });
 

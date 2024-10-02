@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { TouchableOpacity, Text, View, StyleSheet, TextInput } from "react-native";
 import {
   getAuth,
-  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
 } from "firebase/auth";
 import theme from "../../data/theme.json";
+
+// TODO - fix context to hold state when auth fails for email/password
+// as currently the component re-renders and the state is lost
+// https://claude.ai/chat/a1532fde-3486-4a1f-a8d5-cefa908cb3ef
 
 const AuthEmailPassword = ({ setLoading }) => {
   const [email, setEmail] = useState("");
@@ -18,52 +21,56 @@ const AuthEmailPassword = ({ setLoading }) => {
     return re.test(email);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     setLoading(true);
+    setError(""); // Clear any previous error
 
     if (!validateEmail(email)) {
       setError("Please enter a valid email address");
+      setLoading(false);
       return;
     }
 
     if (password.length < 6) {
       setError("Password must be at least 6 characters long");
+      setLoading(false);
       return;
     }
 
-    setError("");
     const auth = getAuth();
 
     try {
-      // First, try to sign in
       await signInWithEmailAndPassword(auth, email, password);
       if (__DEV__) {
         console.log("Sign in successful");
       }
+      // Don't clear email and password here
     } catch (signInError) {
-      // If sign in fails, try to create a new account
-      try {
-        await createUserWithEmailAndPassword(auth, email, password);
-        if (__DEV__) {
-          console.log("Sign up successful");
-        }
-      } catch (signUpError) {
-        // Handle specific error cases
-        if (signUpError.code === "auth/email-already-in-use") {
-          setError("Incorrect password for existing account");
-        } else {
-          setError("Authentication failed. Please try again.");
-        }
-        console.error("Authentication error:", signUpError.message);
-      } finally {
-        setLoading(false);
+      // console.error("Authentication error:", signInError);
+
+      // Map Firebase error codes to user-friendly messages
+      switch (signInError.code) {
+        case "auth/user-not-found":
+          setError("No user found with this email address");
+          break;
+        case "auth/wrong-password":
+          setError("Incorrect password");
+          break;
+        case "auth/invalid-email":
+          setError("Invalid email address");
+          break;
+        case "auth/user-disabled":
+          setError("This account has been disabled");
+          break;
+        default:
+          setError("An error occurred during sign in. Please try again.");
       }
     } finally {
       setLoading(false);
     }
-  };
+  }, [email, password, setLoading]);
 
-  const handleForgotPassword = async () => {
+  const handleForgotPassword = useCallback(async () => {
     if (!validateEmail(email)) {
       setError("Please enter a valid email address");
       return;
@@ -72,19 +79,16 @@ const AuthEmailPassword = ({ setLoading }) => {
     const auth = getAuth();
     try {
       await sendPasswordResetEmail(auth, email);
-      Alert.alert(
-        "Password Reset Email Sent",
-        "Check your email for instructions to reset your password."
-      );
+      setError("Check your email for instructions to reset your password.");
     } catch (error) {
       console.error("Password reset error:", error);
       setError("Failed to send password reset email. Please try again.");
     }
-  };
+  }, [email]);
 
   return (
     <View style={styles.container}>
-      {error ? <Text style={styles.errorText}>{error}</Text> : null}
+      {error !== "" && <Text style={styles.errorText}>{error}</Text>}
 
       <TextInput
         placeholder="Email"

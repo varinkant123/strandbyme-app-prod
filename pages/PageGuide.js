@@ -7,13 +7,15 @@ import { GuideStepData } from "../components/Guide/GuideStepData";
 import GuideImage1 from "../components/Guide/GuideImage1";
 import GuideImage2 from "../components/Guide/GuideImage2";
 import GuideImage3 from "../components/Guide/GuideImage3";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 // -----------------------------------------------------------------------------------------------------------------------
 const PageGuide = () => {
   const navigation = useNavigation();
+  const route = useRoute();
   // step
-  const [step, setStep] = useState(1);
+  const initialStep = route.params?.initialStep || 1;
+  const [step, setStep] = useState(initialStep);
 
   // Animated values
   const [fadeAnim] = useState(new Animated.Value(1));
@@ -85,7 +87,7 @@ const PageGuide = () => {
           },
         ]}
       >
-        {step === 1 && <GuideImage1 />}
+        {step === 1 && <GuideImage1 showTimer={true} />}
         {step === 2 && <GuideImage2 />}
         {step === 3 && <GuideImage3 />}
       </Animated.View>

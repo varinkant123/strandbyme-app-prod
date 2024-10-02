@@ -28,6 +28,13 @@ const DailyItem = ({ item }) => {
     ));
   };
 
+  // function to format time from seconds to minutes and seconds
+  function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+  }
+
   return (
     <View style={styles.containerMain}>
       <View style={styles.containerImageHeader}>
@@ -50,7 +57,7 @@ const DailyItem = ({ item }) => {
       </View>
       <View style={styles.containerResultStats}>
         <Text style={styles.timeText}>
-          {item.TimeTaken === "" ? "-" : item.TimeTaken}
+          {item.TimeTaken === "" ? "-" : formatTime(item.TimeTaken)}
         </Text>
       </View>
     </View>

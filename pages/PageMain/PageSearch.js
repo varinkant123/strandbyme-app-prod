@@ -151,9 +151,9 @@ const PageSearch = () => {
           contentContainerStyle={styles.listContentContainer}
         />
         {/* if search results are empty and query is not empty then return text */}
-        {searchResults.length === 0 && searchValue && (
+        {searchResults.length > 3 && searchValue && (
           <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>No results found.</Text>
+            <Text style={styles.emptyText}>No results found</Text>
           </View>
         )}
       </View>
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   },
   emptyContainer: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
     paddingHorizontal: theme.main.paddingHorizontal,
   },

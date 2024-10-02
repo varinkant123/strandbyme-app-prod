@@ -33,7 +33,7 @@ const AuthButtonSocialApple = ({}) => {
       let userExists = false;
       try {
         const response = await api.get(`/user/${uid}/status`);
-        userExists = response.data.exists;
+        userExists = response.data.status;
         if (__DEV__) {
           console.log("User status response:", response.data);
         }

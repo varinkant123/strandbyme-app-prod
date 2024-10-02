@@ -51,11 +51,11 @@ const DataAccountMainMenu = () => {
         //   title: "Invite",
         //   page: "PageAccountInvite",
         // },
-        {
-          id: "help_report_problem",
-          title: "Report Issue",
-          page: "AccountReportProblem",
-        },
+        // {
+        //   id: "help_report_problem",
+        //   title: "Report Issue",
+        //   page: "AccountReportIssue",
+        // },
         {
           id: "help_about",
           title: "About",

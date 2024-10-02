@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     width: "100%",
-    backgroundColor: theme.colors.gray.T100,
+    backgroundColor: theme.colors.gray.T50,
     borderRadius: theme.borderRadius.md,
   },
   input: {

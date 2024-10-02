@@ -9,12 +9,13 @@ const AccountSecondaryButtonFooter = ({
   handleButtonSave,
   handleButtonClose,
   displayButtonSave = true,
+  buttonSaveLabel = "Save",
 }) => {
   return (
     <View style={styles.containerMain}>
       {displayButtonSave && (
         <Button
-          title="Save"
+          title={buttonSaveLabel}
           onPress={handleButtonSave}
           disabled={disabled}
           buttonStyle={{

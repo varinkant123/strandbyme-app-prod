@@ -1,20 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  AppState,
-  ActivityIndicator,
-} from "react-native";
-import theme from "../../data/theme.json";
+import { View, StyleSheet, AppState, ActivityIndicator } from "react-native";
 import { WebView } from "react-native-webview";
 import { useNavigation } from "@react-navigation/native";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import api from "../../api/api";
 import { format } from "date-fns";
 import { useAuthUser } from "../../components/Auth/AuthUserContext";
-import getPIDOnDevice from "../../utils/PID/getPIDOnDevice";
-
+import { getPIDOnDevice } from "../../utils/PID/getPIDOnDevice";
 // docs
 // https://github.com/react-native-webview/react-native-webview/blob/master/docs/Reference.md
 
@@ -34,32 +25,34 @@ const PageStrands = () => {
   // javscript injection to close webview when result is displayed on screen
   const injectedJavaScript = `
   (function() {
-    function getContentAndHtml() {
-      const contentElement = document.querySelector('#app > dialog:nth-child(8) > div.ygtU9G_content.ygtU9G_fullscreen.ygtU9G_slideIn > div');
-      
+    function getFullHtml() {
+      const contentElement = document.querySelector("#portal-modal-system > div");
+  
       if (contentElement) {
-        const circleWrapperElement = document.querySelector('#app > dialog:nth-child(8) > div.ygtU9G_content.ygtU9G_fullscreen.ygtU9G_slideIn > div > div > div._5Nj5-q_circleWrapper');
-        const circleWrapperHtml = circleWrapperElement ? circleWrapperElement.outerHTML : '';
-
-        const content = contentElement.innerText;
-        
+        const fullHtml = document.documentElement.outerHTML;
+  
         window.ReactNativeWebView.postMessage(JSON.stringify({
-          type: 'contentAndHtml',
-          content: content,
-          circleWrapperHtml: circleWrapperHtml
+          type: 'html',
+          pageHTML: fullHtml
         }));
       }
-      setTimeout(getContentAndHtml, 1000); // Check every second
+      setTimeout(getFullHtml, 1000); // Check every second
     }
   
-    getContentAndHtml();
+    getFullHtml();
   })();
   `;
 
   const handleMessage = (event) => {
-    const message = event.nativeEvent.data;
-    setExtractedText(message);
-    console.log("Extracted text:", message);
+    try {
+      const message = JSON.parse(event.nativeEvent.data);
+      if (message.type === "html") {
+        setExtractedText(message);
+        console.log("Received HTML");
+      }
+    } catch (error) {
+      console.error("Error parsing message:", error);
+    }
   };
 
   // useEffect for puzzle is completed then close webview and send api request to process puzzle and update result hook
@@ -129,6 +122,14 @@ const PageStrands = () => {
       const formattedStartTime = format(startTimeRef.current, "yyyy-MM-dd HH:mm:ss SSS");
 
       try {
+        // before submitting check to see the user result doesn't already exist, as user may visit page again to view result and we don't want to submit twice
+        const response = await api.get(`/results/${uid}/${pid}/submit`);
+
+        if (response.data && response.data.isSubmitted) {
+          console.log("Result already submitted, skipping submission");
+          return;
+        }
+
         // Wait for the log route to complete
         await api.put(`/results/${uid}/${pid}/log`, {
           DateTimeStartOnDevice: formattedStartTime,
@@ -140,15 +141,22 @@ const PageStrands = () => {
         if (FlagClosed === "true") {
           setLoading(true);
           try {
-            // Now we can be sure the log route is completed before this runs
-            await api.put(`/results/${uid}/${pid}/submit`, {
-              HTMLString: extractedText.circleWrapperHtml,
+            console.log("Submitting HTML, length:", extractedText.pageHTML.length);
+            await api.post(`/results/${uid}/${pid}/submit`, {
+              pageHTML: extractedText.pageHTML,
             });
+            console.log("Submit successful");
           } catch (error) {
             console.error("Error updating puzzle submit:", error);
-            // Handle error (e.g., show error message to user)
+            // Log more details about the error
+            console.error(
+              "Error details:",
+              error.response ? error.response.data : error.message
+            );
           } finally {
             setLoading(false);
+            // navigate to daily
+            navigation.navigate("Daily");
           }
         }
       } catch (error) {

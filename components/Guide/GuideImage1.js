@@ -30,7 +30,7 @@ const CirclesAndLines = () => {
 };
 
 // -----------------------------------------------------------------------------------------------------------------------
-const GuideImage1 = (showTimer = true) => {
+const GuideImage1 = ({ showTimer = true }) => {
   const [seconds, setSeconds] = useState(0);
 
   const formatTime = useCallback((totalSeconds) => {

@@ -12,7 +12,7 @@ const ButtonAdd = ({ hasNewNotifications, show = true }) => {
   const getTestAPI = async () => {
     // const response = await api.get("/test");
     // output the response value which is in user object
-    navigation.navigate("Guide");
+    navigation.navigate("Guide", { initialStep: 1 });
   };
 
   return (

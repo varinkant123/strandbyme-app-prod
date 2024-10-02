@@ -20,6 +20,7 @@ import LoadingIndicator from "../../components/UI/LoadingIndicator";
 import { useAuthUser } from "../../components/Auth/AuthUserContext";
 import api from "../../api/api";
 import _ from "lodash";
+import ShadowLineSeperator from "../../components/UI/ShadowLineSeperator";
 
 // -----------------------------------------------------------------------------------------------------------------------
 // using the useQuery hook to get the data from the api
@@ -103,13 +104,14 @@ const PageLeaderboard = () => {
         handlePressNext={handlePressNext}
         handlePressPrevious={handlePressPrevious}
       ></LeaderboardCustomInput>
+      <ShadowLineSeperator></ShadowLineSeperator>
 
       {/* Leadearboard for Total Strands Completed */}
       <TouchableOpacity
         onPress={() =>
           navigation.navigate("LeaderboardDetail", {
             title: "Leaderboard",
-            subtitle: "Daily Wins",
+            subtitle: "Strands",
             value: "Total",
             data: data.LeaderboardTotal,
           })
@@ -133,6 +135,7 @@ const PageLeaderboard = () => {
         </View>
       </TouchableOpacity>
 
+      <ShadowLineSeperator></ShadowLineSeperator>
       {/* Leadearboard for % of Strands Without Hints */}
       <TouchableOpacity
         onPress={() =>
@@ -165,6 +168,7 @@ const PageLeaderboard = () => {
         </View>
       </TouchableOpacity>
 
+      <ShadowLineSeperator></ShadowLineSeperator>
       {/* Leaderboard for Avergare Time Taken to Complete Strands */}
       <TouchableOpacity
         onPress={() =>
@@ -194,6 +198,7 @@ const PageLeaderboard = () => {
         </View>
       </TouchableOpacity>
 
+      <ShadowLineSeperator></ShadowLineSeperator>
       {/* Leaderboard for Best Time Taken to Complete Strands */}
       <TouchableOpacity
         onPress={() =>

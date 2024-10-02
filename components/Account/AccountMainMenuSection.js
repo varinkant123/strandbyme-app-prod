@@ -1,6 +1,7 @@
 import { View, StyleSheet, Text } from "react-native";
 import theme from "../../data/theme.json";
 import AccountMainMenuItem from "./AccountMainMenuItem";
+import ShadowLineSeperator from "../UI/ShadowLineSeperator";
 
 // -----------------------------------------------------------------------------------------------------------------------
 // notes
@@ -21,6 +22,7 @@ const AccountMainMenuSection = ({ item }) => {
           />
         ))}
       </View>
+      {/* <ShadowLineSeperator></ShadowLineSeperator> */}
     </View>
   );
 };
@@ -33,6 +35,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: "center",
     paddingVertical: 6,
+    backgroundColor: theme.colors.gray.T50,
   },
   containerItems: {},
   header: {

@@ -12,7 +12,7 @@ const GuideImage2 = () => {
       UserFirstName: "Veronica",
       UserAvatar: "013",
       Position: "1",
-      TimeTaken: "1:00",
+      TimeTaken: 60,
       EncodedResult: "BBBBYBB",
     },
     {
@@ -20,7 +20,7 @@ const GuideImage2 = () => {
       UserFirstName: "Varin",
       UserAvatar: "009",
       Position: "2",
-      TimeTaken: "3:12",
+      TimeTaken: 182,
       EncodedResult: "BBBBLYBB",
     },
     {
@@ -28,7 +28,7 @@ const GuideImage2 = () => {
       UserFirstName: "Amy",
       UserAvatar: "022",
       Position: "3",
-      TimeTaken: "13:40",
+      TimeTaken: 190,
       EncodedResult: "BBLBLBBYB",
     },
   ];

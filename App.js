@@ -4,7 +4,7 @@ import NavigationManager from "./pages/NavigationManager";
 import { AuthUserProvider } from "./components/Auth/AuthUserContext";
 import { useFonts } from "expo-font";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// import Sentry from "./sentryConfig";
+import Sentry from "./sentryConfig";
 import LoadingIndicator from "./components/UI/LoadingIndicator";
 
 // -----------------------------------------------------------------------------------------------------------------------
@@ -35,8 +35,8 @@ function App() {
   );
 }
 
-// export default Sentry.wrap(App);
-export default App;
+export default Sentry.wrap(App);
+// export default App;
 
 // -----------------------------------------------------------------------------------------------------------------------
 // import AsyncStorage from "@react-native-async-storage/async-storage";

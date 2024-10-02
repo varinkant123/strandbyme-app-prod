@@ -3,13 +3,14 @@ import theme from "../../../data/theme.json";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
 import api from "../../../api/api";
+import { captureException } from "@sentry/react-native";
 
 // -----------------------------------------------------------------------------------------------------------------------
 const ButtonInfo = ({ hasNewNotifications, show = true }) => {
   const navigation = useNavigation();
 
   const handlerNavigate = () => {
-    navigation.navigate("Guide");
+    navigation.navigate("Guide", { initialStep: 1 });
   };
 
   return (

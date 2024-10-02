@@ -1,19 +1,10 @@
 import { useState, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  ScrollView,
-  ActivityIndicator,
-  RefreshControl,
-} from "react-native";
+import { View, StyleSheet, FlatList, ScrollView, RefreshControl } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import theme from "../../data/theme.json";
 import Header from "../../components/Header/Header";
 import DailyItem from "../../components/Daily/DailyItem";
 import DailyCustomInput from "../../components/Daily/DailyCustomInput";
-import DailyHeader from "../../components/Daily/DailyHeader";
-import DailyInfoCard from "../../components/Daily/DailyInfoCard";
 import DailyPlay from "../../components/Daily/DailyPlay";
 import ModalGeneric from "../../components/Modal/ModalGeneric";
 import api from "../../api/api";
@@ -22,6 +13,7 @@ import { changePIDOnDevice } from "../../utils/PID/changePIDOnDevice";
 import { useAuthUser } from "../../components/Auth/AuthUserContext";
 import LoadingIndicator from "../../components/UI/LoadingIndicator";
 import { useNavigation } from "@react-navigation/native";
+import ShadowLineSeperator from "../../components/UI/ShadowLineSeperator";
 
 // -----------------------------------------------------------------------------------------------------------------------
 // using the useQuery hook to get the data from the api
@@ -44,9 +36,7 @@ const useDailyResults = (UID, PID) => {
 const PageDaily = () => {
   // determine the default value of the PID as the latest by converting the date to puzzle id, note this will be based
   // on the local date and time found on the device
-  // UAT - for development - need to change and test back to function-based
-  // const [PID, setPID] = useState(getPIDOnDevice());
-  const [PID, setPID] = useState("S00161");
+  const [PID, setPID] = useState(getPIDOnDevice());
   const [showModal, setShowModal] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const navigation = useNavigation();
@@ -63,7 +53,8 @@ const PageDaily = () => {
 
   // -----------------------------------------------------------------------------------------------------------------------
   const handlePressPrevious = () => {
-    const PIDLast = "S00161"; // Example hardcoded limit
+    // TODO - update to first PID
+    const PIDLast = "S00203"; // Example hardcoded limit
     if (PID === PIDLast) return;
     setPID(changePIDOnDevice(PID, -1));
   };
@@ -118,13 +109,18 @@ const PageDaily = () => {
       >
         <Header title="Daily" />
         <DailyCustomInput
-          title={data && data.Title ? data.Title : "Strands #"}
-          description={data && data.Description ? data.Description : "What's Screen Time"}
+          title={
+            data && data.Title
+              ? data.Title
+              : `Strands #${parseInt(PID.match(/S0*(\d+)/)[1])}`
+          }
+          description={data && data.Description ? data.Description : "-"}
           handlePressPrevious={handlePressPrevious}
           handlePressNext={handlePressNext}
         ></DailyCustomInput>
+        <ShadowLineSeperator></ShadowLineSeperator>
         <View style={styles.listOuterContainer}>
-          <DailyHeader></DailyHeader>
+          {/* <DailyHeader></DailyHeader> */}
           {data && data.Leaderboard && (
             <FlatList
               data={data.Leaderboard}
