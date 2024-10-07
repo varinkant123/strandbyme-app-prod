@@ -34,7 +34,7 @@ const Button = ({
 const styles = StyleSheet.create({
   button: {
     width: "100%",
-    backgroundColor: theme.colors.active,
+    backgroundColor: "black",
     paddingVertical: 14,
     borderRadius: theme.borderRadius.md,
     alignItems: "center",

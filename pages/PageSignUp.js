@@ -25,11 +25,18 @@ import LoadingIndicator from "../components/UI/LoadingIndicator";
 
 // -----------------------------------------------------------------------------------------------------------------------
 const PageSignUp = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [step, setStep] = useState(0);
   const [data, setData] = useState(SignupDataForm());
   const { uid } = useAuthUser();
   const navigation = useNavigation();
+
+  // ---------------------------------------------------------------------------------------------------------------------
+  // this is a bit of a hacky solution but in navigation manager while api request is resolving for usercomplemted,
+  // this screen flashes, i want to add a second check and return a loading screen if the api request is still pending
+  if (uid) {
+    setLoading(false);
+  }
 
   // ---------------------------------------------------------------------------------------------------------------------
   // modified setdata which updates the value of the input based on the id

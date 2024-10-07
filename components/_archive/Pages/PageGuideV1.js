@@ -1,17 +1,12 @@
 import { useRef, useState, useCallback } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Animated,
-  Easing,
-  Image,
-} from "react-native";
-import theme from "../data/theme.json";
-import Spacer from "../components/UI/Spacer";
+import { View, Text, StyleSheet, TouchableOpacity, Animated, Easing } from "react-native";
+import theme from "../../../data/theme.json";
+import Spacer from "../../UI/Spacer";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { GuideStepData } from "../components/Guide/GuideStepData";
+import { GuideStepData } from "../../Guide/GuideStepData";
+import GuideImage1 from "../../Guide/GuideImage1";
+import GuideImage2 from "../../Guide/GuideImage2";
+import GuideImage3 from "../../Guide/GuideImage3";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 // -----------------------------------------------------------------------------------------------------------------------
@@ -92,15 +87,9 @@ const PageGuide = () => {
           },
         ]}
       >
-        {step === 1 && (
-          <Image source={require("../assets/illustration/B1.png")} style={styles.image} />
-        )}
-        {step === 2 && (
-          <Image source={require("../assets/illustration/B2.png")} style={styles.image} />
-        )}
-        {step === 3 && (
-          <Image source={require("../assets/illustration/B3.png")} style={styles.image} />
-        )}
+        {step === 1 && <GuideImage1 showTimer={true} />}
+        {step === 2 && <GuideImage2 />}
+        {step === 3 && <GuideImage3 />}
       </Animated.View>
       <View style={styles.containerMain}>
         <Animated.View
@@ -136,7 +125,7 @@ const PageGuide = () => {
 // -----------------------------------------------------------------------------------------------------------------------
 const styles = StyleSheet.create({
   containerRoot: {
-    backgroundColor: "#fff",
+    backgroundColor: "#fafafa",
     width: "100%",
     flex: 1,
   },
@@ -144,7 +133,7 @@ const styles = StyleSheet.create({
   containerMain: {
     width: "100%",
     flex: 1,
-    paddingTop: 0,
+    paddingTop: 12,
     paddingBottom: 64,
     paddingHorizontal: theme.main.paddingHorizontal,
     justifyContent: "space-between",
@@ -155,9 +144,9 @@ const styles = StyleSheet.create({
   containerImage: {
     width: "100%",
     height: "50%",
-    // backgroundColor: "#fafafa",
+    backgroundColor: theme.colors.active,
     justifyContent: "flex-end",
-    paddingBottom: 0,
+    paddingBottom: 40,
     paddingHorizontal: 24,
   },
 
@@ -178,10 +167,9 @@ const styles = StyleSheet.create({
   },
 
   subtitle: {
-    width: "90%",
-    marginTop: 8,
+    width: "100%",
+    marginTop: 12,
     fontSize: theme.fontSizes.md,
-    lineHeight: theme.fontSizes.md * 1.3,
     marginLeft: 0,
     fontWeight: "400",
     textAlign: "center",
@@ -194,11 +182,6 @@ const styles = StyleSheet.create({
     height: 60,
     alignItems: "center",
     justifyContent: "center",
-  },
-
-  image: {
-    width: "100%",
-    height: "60%",
   },
 });
 

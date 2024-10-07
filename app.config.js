@@ -6,7 +6,7 @@ const config = {
     slug: "app",
     version: "1.0.0",
     orientation: "portrait",
-    icon: "./assets/logo/logo-6-1024.png",
+    icon: "./assets/logo/logo-5-1024.png",
     userInterfaceStyle: "light",
     scheme: "app",
     assetBundlePatterns: ["**/*"],

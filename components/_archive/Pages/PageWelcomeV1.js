@@ -42,9 +42,9 @@ const PageWelcome = ({ navigation }) => {
       <View style={styles.container}>
         <Spacer height={24} />
         <Text style={styles.title}>Strand By Me</Text>
-        {/* <Text style={styles.subtitle}>Complement your NYT Strands play</Text>
+        <Text style={styles.subtitle}>Complement your NYT Strands play</Text>
         <Text style={styles.subtitle}>by tracking your puzzle solve times</Text>
-        <Text style={styles.subtitle}>and engage in friendly rivalry</Text> */}
+        <Text style={styles.subtitle}>and engage in friendly rivalry</Text>
         <View style={{ flex: 1 }} />
         {/* This will push the following View to the bottom */}
         <View style={styles.buttonContainer}>
@@ -58,7 +58,7 @@ const PageWelcome = ({ navigation }) => {
             title="Log In"
             buttonStyle={{
               width: "100%",
-              borderRadius: 32,
+              // borderRadius: 32,
               // marginTop: 14,
               // backgroundColor: theme.colors.gray.T100,
             }}
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
 
   containerImage: {
     width: "100%",
-    height: "50%",
+    height: 300,
     // backgroundColor: theme.colors.active,
     justifyContent: "flex-end",
     alignItems: "center",

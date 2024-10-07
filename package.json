@@ -35,6 +35,7 @@
     "expo-font": "~12.0.10",
     "expo-random": "~14.0.1",
     "expo-status-bar": "~1.12.1",
+    "expo-updates": "~0.25.26",
     "firebase": "^10.12.4",
     "lodash": "^4.17.21",
     "react": "18.2.0",
