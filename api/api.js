@@ -11,8 +11,8 @@ import { getAuth } from "firebase/auth";
 // Ensure your backend server accepts connections from all network interfaces, not just localhost
 
 const api = axios.create({
-  // baseURL: "http://localhost:3000/api",192.168.0.6
-  // baseURL: "http://192.168.0.6:3000/api",
+  // baseURL: "http://localhost:3000/api",
+  // baseURL: "http://192.168.0.106:3000/api",
   baseURL: "https://strandbyme-api-prod.vercel.app/api",
 });
 

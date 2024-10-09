@@ -18,7 +18,7 @@ const PageStrands = () => {
   const [extractedText, setExtractedText] = useState();
   const appStateRef = useRef(AppState.currentState);
   const startTimeRef = useRef(new Date());
-  const endTimeHandledRef = useRef(false);
+  const submissionHandledRef = useRef(false);
   const pid = getPIDOnDevice();
 
   // --------------------------------------------------------------
@@ -56,9 +56,13 @@ const PageStrands = () => {
   };
 
   // useEffect for puzzle is completed then close webview and send api request to process puzzle and update result hook
-  // note - extracted text is an object only set when puzzle is completed
   useEffect(() => {
-    if (extractedText && !endTimeHandledRef.current) {
+    if (
+      extractedText &&
+      extractedText.pageHTML &&
+      extractedText.pageHTML.includes("NEXT PUZZLE IN")
+    ) {
+      console.log("'NEXT PUZZLE IN' found. Calling handleEndTime('true')");
       handleEndTime("true");
     }
   }, [extractedText]);
@@ -71,9 +75,7 @@ const PageStrands = () => {
 
     return () => {
       subscription.remove();
-      if (!endTimeHandledRef.current) {
-        handleEndTime();
-      }
+      handleEndTime();
     };
   }, []);
 
@@ -97,13 +99,12 @@ const PageStrands = () => {
     startTimeRef.current = new Date();
     const startTime = format(startTimeRef.current, "yyyy-MM-dd HH:mm:ss SSS");
     try {
-      const response = await api.post(`/results/${uid}/${pid}/log`, {
+      await api.post(`/results/${uid}/${pid}/log`, {
         DateTimeStartOnDevice: startTime,
       });
-      // console.log("StartTime:", response.data);
+      console.log("Start time logged successfully");
     } catch (error) {
       console.error("Error posting start time:", error);
-      // Handle error (e.g., show error message to user)
     }
     setLoading(false);
   };
@@ -114,56 +115,53 @@ const PageStrands = () => {
   // This structure guarantees that when FlagClosed is true, the /results/log route will complete before the
   // /results/submit route is called. If the log route fails, the submit route won't be called at all.
   const handleEndTime = async (FlagClosed = "false") => {
-    if (isActive && !endTimeHandledRef.current) {
-      endTimeHandledRef.current = true;
-      setIsActive(false);
-      const endTime = new Date();
-      const formattedEndTime = format(endTime, "yyyy-MM-dd HH:mm:ss SSS");
-      const formattedStartTime = format(startTimeRef.current, "yyyy-MM-dd HH:mm:ss SSS");
+    console.log("handleEndTime called with FlagClosed:", FlagClosed);
 
-      try {
-        // before submitting check to see the user result doesn't already exist, as user may visit page again to view result and we don't want to submit twice
-        const response = await api.get(`/results/${uid}/${pid}/submit`);
+    const endTime = new Date();
+    const formattedEndTime = format(endTime, "yyyy-MM-dd HH:mm:ss SSS");
+    const formattedStartTime = format(startTimeRef.current, "yyyy-MM-dd HH:mm:ss SSS");
 
-        if (response.data && response.data.isSubmitted) {
-          console.log("Result already submitted, skipping submission");
-          return;
-        }
+    try {
+      console.log("Logging end time...");
+      await api.put(`/results/${uid}/${pid}/log`, {
+        DateTimeStartOnDevice: formattedStartTime,
+        DateTimeEndOnDevice: formattedEndTime,
+        FlagClosed: FlagClosed,
+      });
+      console.log("End time logged successfully");
 
-        // Wait for the log route to complete
-        await api.put(`/results/${uid}/${pid}/log`, {
-          DateTimeStartOnDevice: formattedStartTime,
-          DateTimeEndOnDevice: formattedEndTime,
-          FlagClosed: FlagClosed,
-        });
+      if (FlagClosed === "true" && !submissionHandledRef.current) {
+        submissionHandledRef.current = true;
+        setLoading(true);
+        try {
+          console.log("Checking if result is already submitted...");
+          const response = await api.get(`/results/${uid}/${pid}/submit`);
 
-        // If it is flagclosed i.e. the puzzle is completed then send api request to process puzzle and update result
-        if (FlagClosed === "true") {
-          setLoading(true);
-          try {
+          if (response.data && response.data.isSubmitted) {
+            console.log("Result already submitted, skipping submission");
+          } else {
             console.log("Submitting HTML, length:", extractedText.pageHTML.length);
             await api.post(`/results/${uid}/${pid}/submit`, {
               pageHTML: extractedText.pageHTML,
             });
             console.log("Submit successful");
-          } catch (error) {
-            console.error("Error updating puzzle submit:", error);
-            // Log more details about the error
-            console.error(
-              "Error details:",
-              error.response ? error.response.data : error.message
-            );
-          } finally {
-            setLoading(false);
-            // navigate to daily
-            navigation.navigate("Daily");
           }
+        } catch (error) {
+          console.error("Error updating puzzle submit:", error);
+          console.error(
+            "Error details:",
+            error.response ? error.response.data : error.message
+          );
+        } finally {
+          setLoading(false);
+          navigation.navigate("Daily");
         }
-      } catch (error) {
-        console.error("Error posting end time:", error);
-        // Handle error (e.g., show error message to user)
       }
+    } catch (error) {
+      console.error("Error in handleEndTime:", error);
     }
+
+    setIsActive(false);
   };
 
   // --------------------------------------------------------------

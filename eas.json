@@ -5,22 +5,42 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_FIREBASE_apiKey": "AIzaSyCZr_9WfNE4xthzmUFDkCxLPTV-nc7gLsw",
+        "EXPO_PUBLIC_FIREBASE_authDomain": "strand-by-me.firebaseapp.com",
+        "EXPO_PUBLIC_FIREBASE_projectId": "strand-by-me",
+        "EXPO_PUBLIC_FIREBASE_storageBucket": "strand-by-me.appspot.com",
+        "EXPO_PUBLIC_FIREBASE_messagingSenderId": "736451346556",
+        "EXPO_PUBLIC_FIREBASE_appId": "1:736451346556:web:271728893e1f4e0c2189f9",
+        "EXPO_PUBLIC_FIREBASE_measurementId": "G-5QB5J4P92R"
+      }
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_FIREBASE_apiKey": "AIzaSyCZr_9WfNE4xthzmUFDkCxLPTV-nc7gLsw",
+        "EXPO_PUBLIC_FIREBASE_authDomain": "strand-by-me.firebaseapp.com",
+        "EXPO_PUBLIC_FIREBASE_projectId": "strand-by-me",
+        "EXPO_PUBLIC_FIREBASE_storageBucket": "strand-by-me.appspot.com",
+        "EXPO_PUBLIC_FIREBASE_messagingSenderId": "736451346556",
+        "EXPO_PUBLIC_FIREBASE_appId": "1:736451346556:web:271728893e1f4e0c2189f9",
+        "EXPO_PUBLIC_FIREBASE_measurementId": "G-5QB5J4P92R"
+      }
     },
     "production": {
       "distribution": "store",
       "ios": {
         "resourceClass": "m-medium"
-      }
-    }
-  },
-  "submit": {
-    "production": {
-      "ios": {
-        "appleId": "varin@hey.com"
+      },
+      "env": {
+        "EXPO_PUBLIC_FIREBASE_apiKey": "AIzaSyCZr_9WfNE4xthzmUFDkCxLPTV-nc7gLsw",
+        "EXPO_PUBLIC_FIREBASE_authDomain": "strand-by-me.firebaseapp.com",
+        "EXPO_PUBLIC_FIREBASE_projectId": "strand-by-me",
+        "EXPO_PUBLIC_FIREBASE_storageBucket": "strand-by-me.appspot.com",
+        "EXPO_PUBLIC_FIREBASE_messagingSenderId": "736451346556",
+        "EXPO_PUBLIC_FIREBASE_appId": "1:736451346556:web:271728893e1f4e0c2189f9",
+        "EXPO_PUBLIC_FIREBASE_measurementId": "G-5QB5J4P92R"
       }
     }
   }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -34,9 +34,13 @@ const PageSignUp = () => {
   // ---------------------------------------------------------------------------------------------------------------------
   // this is a bit of a hacky solution but in navigation manager while api request is resolving for usercomplemted,
   // this screen flashes, i want to add a second check and return a loading screen if the api request is still pending
-  if (uid) {
-    setLoading(false);
-  }
+  useEffect(() => {
+    if (uid) {
+      setLoading(false);
+    }
+  }, [uid]);
+
+  console.log(uid);
 
   // ---------------------------------------------------------------------------------------------------------------------
   // modified setdata which updates the value of the input based on the id
@@ -138,7 +142,7 @@ const PageSignUp = () => {
   };
 
   // ---------------------------------------------------------------------------------------------------------------------
-  if (loading) {
+  if (loading || !uid) {
     return <LoadingIndicator />;
   }
 

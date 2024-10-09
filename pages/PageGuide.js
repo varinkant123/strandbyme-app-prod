@@ -93,13 +93,13 @@ const PageGuide = () => {
         ]}
       >
         {step === 1 && (
-          <Image source={require("../assets/illustration/B1.png")} style={styles.image} />
+          <Image source={require("../assets/illustration/B3.png")} style={styles.image} />
         )}
         {step === 2 && (
-          <Image source={require("../assets/illustration/B2.png")} style={styles.image} />
+          <Image source={require("../assets/illustration/B1.png")} style={styles.image} />
         )}
         {step === 3 && (
-          <Image source={require("../assets/illustration/B3.png")} style={styles.image} />
+          <Image source={require("../assets/illustration/B4.png")} style={styles.image} />
         )}
       </Animated.View>
       <View style={styles.containerMain}>
@@ -198,7 +198,8 @@ const styles = StyleSheet.create({
 
   image: {
     width: "100%",
-    height: "60%",
+    height: "55%",
+    resizeMode: "contain",
   },
 });
 
