@@ -13,6 +13,7 @@ const AccountMainMenuItem = ({ item, isLastItem }) => {
     if (item.id === "account_logout") {
       // handle logout action
       handleSignOut();
+      navigation.navigate("Welcome");
     } else if (item.id === "account_delete") {
       // ACCOUNT DELTE NOT IMPLEMENTED
       // handle delete account action

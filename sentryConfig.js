@@ -34,7 +34,7 @@ Sentry.init({
   // enableInExpoDevelopment: If true, Sentry will capture and send events
   // even when running in Expo development mode (e.g., in Expo Go or dev builds).
   // By default, Sentry doesn't send events in Expo dev environments to reduce noise.
-  enableInExpoDevelopment: true,
+  enableInExpoDevelopment: false,
   tracesSampleRate: 1.0,
   _experiments: {
     // profilesSampleRate is relative to tracesSampleRate.

@@ -29,7 +29,7 @@ const AccountFriendsUserItem = ({
           styles.containerMain,
           item.Status === "Waiting" || item.Status === "Pending"
             ? {
-                backgroundColor: theme.colors.gray.T100,
+                backgroundColor: theme.colors.gray.T50,
                 borderRadius: theme.borderRadius.md,
               }
             : {},

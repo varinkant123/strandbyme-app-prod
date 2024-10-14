@@ -169,6 +169,36 @@ const PageLeaderboard = () => {
       </TouchableOpacity>
 
       <ShadowLineSeperator></ShadowLineSeperator>
+
+      {/* Leaderboard for Best Time Taken to Complete Strands */}
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate("LeaderboardDetail", {
+            title: "Time",
+            subtitle: "Best",
+            value: "Mins",
+            data: data.LeaderboardBestTime,
+          })
+        }
+      >
+        <View style={styles.listOuterContainer}>
+          <LeaderboardHeader
+            title="Time"
+            subtitle="Best"
+            value="Mins"
+          ></LeaderboardHeader>
+          <FlatList
+            data={_.take(data.LeaderboardBestTime, 3)}
+            keyExtractor={(item) => item.UID.toString()}
+            renderItem={({ item }) => (
+              <LeaderboardItem item={item} leaderboard={"LeaderboardBestTime"} />
+            )}
+            showsVerticalScrollIndicator={false}
+            scrollEnabled={false}
+          />
+        </View>
+      </TouchableOpacity>
+
       {/* Leaderboard for Avergare Time Taken to Complete Strands */}
       <TouchableOpacity
         onPress={() =>
@@ -199,34 +229,6 @@ const PageLeaderboard = () => {
       </TouchableOpacity>
 
       <ShadowLineSeperator></ShadowLineSeperator>
-      {/* Leaderboard for Best Time Taken to Complete Strands */}
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("LeaderboardDetail", {
-            title: "Time",
-            subtitle: "Best",
-            value: "Mins",
-            data: data.LeaderboardBestTime,
-          })
-        }
-      >
-        <View style={styles.listOuterContainer}>
-          <LeaderboardHeader
-            title="Time"
-            subtitle="Best"
-            value="Mins"
-          ></LeaderboardHeader>
-          <FlatList
-            data={_.take(data.LeaderboardBestTime, 3)}
-            keyExtractor={(item) => item.UID.toString()}
-            renderItem={({ item }) => (
-              <LeaderboardItem item={item} leaderboard={"LeaderboardBestTime"} />
-            )}
-            showsVerticalScrollIndicator={false}
-            scrollEnabled={false}
-          />
-        </View>
-      </TouchableOpacity>
     </ScrollView>
   );
 };

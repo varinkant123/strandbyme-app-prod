@@ -40,8 +40,6 @@ const PageSignUp = () => {
     }
   }, [uid]);
 
-  console.log(uid);
-
   // ---------------------------------------------------------------------------------------------------------------------
   // modified setdata which updates the value of the input based on the id
   const updateData = (id, value) => {
@@ -142,7 +140,7 @@ const PageSignUp = () => {
   };
 
   // ---------------------------------------------------------------------------------------------------------------------
-  if (loading || !uid) {
+  if (loading) {
     return <LoadingIndicator />;
   }
 

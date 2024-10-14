@@ -1,15 +1,22 @@
 import React, { useState } from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import theme from "../../data/theme.json";
 import { useNavigation } from "@react-navigation/native";
 
 // -----------------------------------------------------------------------------------------------------------------------
-const DailyPlay = () => {
+const DailyPlay = ({ puzzleCompleted }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate("Strands");
+    if (!puzzleCompleted) {
+      Alert.alert(
+        "Strands Completed",
+        "You've already completed today's Strands puzzle!"
+      );
+    } else {
+      navigation.navigate("Strands");
+    }
   };
 
   return (

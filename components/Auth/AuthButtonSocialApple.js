@@ -2,12 +2,11 @@ import { TouchableOpacity, Text, View, Image, StyleSheet } from "react-native";
 import theme from "../../data/theme.json";
 import * as AppleAuthentication from "expo-apple-authentication";
 import { OAuthProvider, signInWithCredential, getAuth } from "firebase/auth";
-import { useNavigation } from "@react-navigation/native";
-import api from "../../api/api";
+import { useAuthUser } from "../../components/Auth/AuthUserContext";
 
 // -----------------------------------------------------------------------------------------------------------------------
 const AuthButtonSocialApple = ({}) => {
-  const navigation = useNavigation();
+  const { setIsSignedIn, setUid } = useAuthUser();
 
   // handler for sign-in with apple
   const signInWithApple = async () => {
@@ -29,42 +28,9 @@ const AuthButtonSocialApple = ({}) => {
       const userCredential = await signInWithCredential(auth, oAuthCredential);
       const uid = userCredential.user.uid;
 
-      // Check if the user is new by seeing if a record exists in the database
-      let userExists = false;
-      try {
-        const response = await api.get(`/user/${uid}/status`);
-        userExists = response.data.status;
-        if (__DEV__) {
-          console.log("User status response:", response.data);
-        }
-      } catch (error) {
-        console.error("Error checking if user exists:", error.response || error);
-        // Assume user doesn't exist if there's an error
-        userExists = false;
-      }
-
-      if (!userExists) {
-        if (__DEV__) {
-          console.log("User doesn't exist, attempting to create...");
-        }
-        // This is a new user, call your API to store user details in database
-        try {
-          const postResponse = await api.post(`/user/${uid}`);
-          if (__DEV__) {
-            console.log("User creation response:", postResponse.data);
-          }
-        } catch (postError) {
-          console.error("Error creating new user:", postError.response || postError);
-          // Handle the error (e.g., show an error message to the user)
-        }
-      } else {
-        if (__DEV__) {
-          console.log("User already exists, skipping creation");
-        }
-      }
-
-      // Navigate to the main screen
-      navigation.navigate("Main");
+      // Update the auth state
+      setIsSignedIn(true);
+      setUid(uid);
     } catch (error) {
       console.error("Apple Sign-In Error:", error);
     }

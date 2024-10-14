@@ -9,14 +9,7 @@ import Spacer from "../UI/Spacer";
 import LoadingIndicator from "../UI/LoadingIndicator";
 
 // -----------------------------------------------------------------------------------------------------------------------
-const AuthMain = ({}) => {
-  const [loading, setLoading] = useState(false);
-
-  // ---------------------------------------------------------------------------------------------------------------------
-  if (loading) {
-    return <LoadingIndicator />;
-  }
-
+const AuthMain = ({ setLoading }) => {
   // ---------------------------------------------------------------------------------------------------------------------
   return (
     <View style={styles.main}>

@@ -22,6 +22,20 @@ const PageLeaderboardDetail = ({ route }) => {
   //     )
   // );
 
+  // HACK
+  // Determine the leaderboard type based on the title and subtitle
+  const getLeaderboardType = () => {
+    if (title === "Leaderboard" && subtitle === "Strands") return "LeaderboardTotal";
+    if (title === "Completion Rate" && subtitle === "Without Hints")
+      return "LeaderboardTotalCompletedNoHints";
+    if (title === "Time" && subtitle === "Average") return "LeaderboardAverageTime";
+    if (title === "Time" && subtitle === "Best") return "LeaderboardBestTime";
+    return ""; // Default case
+  };
+
+  const leaderboardType = getLeaderboardType();
+
+  ///----------------------------------------------------------------------------------------------------------------
   return (
     <View style={styles.containerMain}>
       <LeaderboardHeader
@@ -32,7 +46,9 @@ const PageLeaderboardDetail = ({ route }) => {
       <FlatList
         data={data}
         keyExtractor={(item) => item.UID.toString()}
-        renderItem={({ item }) => <LeaderboardItem item={item} />}
+        renderItem={({ item }) => (
+          <LeaderboardItem item={item} leaderboard={leaderboardType} />
+        )}
         showsVerticalScrollIndicator={false}
       />
     </View>

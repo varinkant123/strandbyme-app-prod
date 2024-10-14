@@ -1,11 +1,11 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import theme from "../../data/theme.json";
 import BottomSheet from "@gorhom/bottom-sheet";
 import AuthMain from "./AuthMain";
 
 // -----------------------------------------------------------------------------------------------------------------------
-const AuthBottomSheet = ({ bottomSheetRef, onChange }) => {
+const AuthBottomSheet = ({ bottomSheetRef, onChange, loading, setLoading }) => {
   const snapPoints = useMemo(() => ["90%"], []);
 
   return (
@@ -21,7 +21,7 @@ const AuthBottomSheet = ({ bottomSheetRef, onChange }) => {
       <View style={styles.containerMain}>
         <Text style={styles.title}>Welcome</Text>
         <Text style={styles.subtitle}>Continue with one of the following options</Text>
-        <AuthMain></AuthMain>
+        <AuthMain setLoading={setLoading}></AuthMain>
       </View>
     </BottomSheet>
   );

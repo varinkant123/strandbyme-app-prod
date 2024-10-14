@@ -3,9 +3,11 @@ import { TouchableOpacity, Text, View, StyleSheet, TextInput } from "react-nativ
 import {
   getAuth,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   sendPasswordResetEmail,
 } from "firebase/auth";
 import theme from "../../data/theme.json";
+import { useAuthUser } from "./AuthUserContext";
 
 // TODO - fix context to hold state when auth fails for email/password
 // as currently the component re-renders and the state is lost
@@ -15,12 +17,16 @@ const AuthEmailPassword = ({ setLoading }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const { setIsSignedIn, setUid } = useAuthUser();
+  const auth = getAuth();
 
+  // ---------------------------------------------------------------------------------------------------------------------
   const validateEmail = (email) => {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
   };
 
+  // ---------------------------------------------------------------------------------------------------------------------
   const handleSubmit = useCallback(async () => {
     setLoading(true);
     setError(""); // Clear any previous error
@@ -37,39 +43,64 @@ const AuthEmailPassword = ({ setLoading }) => {
       return;
     }
 
-    const auth = getAuth();
-
+    // ---------------------------------------------------------------------------------------------------------------------
     try {
+      // First, try to sign in
       await signInWithEmailAndPassword(auth, email, password);
       if (__DEV__) {
         console.log("Sign in successful");
       }
-      // Don't clear email and password here
+      // assign auth hooks in context
+      const user = auth.currentUser;
+      if (user) {
+        setIsSignedIn(true);
+        setUid(user.uid);
+      }
     } catch (signInError) {
-      // console.error("Authentication error:", signInError);
-
-      // Map Firebase error codes to user-friendly messages
-      switch (signInError.code) {
-        case "auth/user-not-found":
-          setError("No user found with this email address");
-          break;
-        case "auth/wrong-password":
-          setError("Incorrect password");
-          break;
-        case "auth/invalid-email":
-          setError("Invalid email address");
-          break;
-        case "auth/user-disabled":
-          setError("This account has been disabled");
-          break;
-        default:
-          setError("An error occurred during sign in. Please try again.");
+      // If sign-in fails, try to create a new account
+      if (signInError.code === "auth/user-not-found") {
+        try {
+          await createUserWithEmailAndPassword(auth, email, password);
+          if (__DEV__) {
+            console.log("Account created and signed in successfully");
+          }
+          // assign auth hooks in context
+          const user = auth.currentUser;
+          if (user) {
+            setIsSignedIn(true);
+            setUid(user.uid);
+          }
+        } catch (createAccountError) {
+          if (__DEV__) {
+            console.error("Account creation error:", createAccountError);
+          }
+          setError("Failed to create account. Please try again.");
+        }
+      } else {
+        if (__DEV__) {
+          console.error("Authentication error:", signInError);
+        }
+        // Handle other sign-in errors
+        switch (signInError.code) {
+          case "auth/wrong-password":
+            setError("Incorrect password");
+            break;
+          case "auth/invalid-email":
+            setError("Invalid email address");
+            break;
+          case "auth/user-disabled":
+            setError("This account has been disabled");
+            break;
+          default:
+            setError("An error occurred. Please try again.");
+        }
       }
     } finally {
       setLoading(false);
     }
   }, [email, password, setLoading]);
 
+  // ---------------------------------------------------------------------------------------------------------------------
   const handleForgotPassword = useCallback(async () => {
     if (!validateEmail(email)) {
       setError("Please enter a valid email address");
@@ -86,6 +117,7 @@ const AuthEmailPassword = ({ setLoading }) => {
     }
   }, [email]);
 
+  // ---------------------------------------------------------------------------------------------------------------------
   return (
     <View style={styles.container}>
       {error !== "" && <Text style={styles.errorText}>{error}</Text>}
@@ -97,12 +129,16 @@ const AuthEmailPassword = ({ setLoading }) => {
         onChangeText={setEmail}
         keyboardType="email-address"
         autoCapitalize="none"
+        autoCorrect={false}
       />
       <TextInput
         placeholder="Password"
         style={styles.input}
         value={password}
         onChangeText={setPassword}
+        autoCapitalize="none"
+        autoCorrect={false}
+        textContentType="password"
         secureTextEntry
       />
 

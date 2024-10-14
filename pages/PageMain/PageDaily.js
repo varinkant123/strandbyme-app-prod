@@ -43,24 +43,25 @@ const PageDaily = () => {
   const { uid } = useAuthUser();
   const { data, error, isLoading, refetch } = useDailyResults(uid, PID);
 
-  // -----------------------------------------------------------------------------------------------------------------
+  const PIDToday = getPIDOnDevice();
+
+  // -----------------------------------------------------------------------------------------------------------------------
   // on mount check to see if there is a friend request pending if so then show the modal with modal info
   useEffect(() => {
     if (data && data.FriendRequestsFlag) {
+      console.log(data);
       setShowModal(true);
     }
   }, [data]);
 
   // -----------------------------------------------------------------------------------------------------------------------
   const handlePressPrevious = () => {
-    // TODO - update to first PID
-    const PIDLast = "S00203"; // Example hardcoded limit
+    const PIDLast = "S00220"; // Example hardcoded limit
     if (PID === PIDLast) return;
     setPID(changePIDOnDevice(PID, -1));
   };
 
   const handlePressNext = () => {
-    const PIDToday = getPIDOnDevice();
     if (PID === PIDToday) return;
     setPID(changePIDOnDevice(PID, 1));
   };
@@ -70,6 +71,37 @@ const PageDaily = () => {
     await refetch();
     setRefreshing(false);
   };
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  // This function is used to determine if the user has completed the daily puzzle by looking to see if the puzzle pid
+  // for today has a completed result, if so pass this boolean value to daily play floating button, whiich will then instead
+  // display a modal saying the puzzle is completed
+  const isPuzzleCompleted = (data) => {
+    if (!data) return false;
+    if (!uid) return false;
+
+    const PIDInData = data.PID;
+
+    // first check if the page the data is on is for today
+    if (PIDToday !== PIDInData) return false;
+
+    const EncodedResultPIDToday = data.Leaderboard.find(
+      (entry) => entry.UID === uid
+    ).EncodedResult;
+
+    // if it is the same then check if a result is given, if no result EncodedResult then true to display
+    if (EncodedResultPIDToday === "") return true;
+
+    // otherwise return false because a encoded result is present
+    return false;
+  };
+
+  // console.log test with useEffect
+  // useEffect(() => {
+  //   console.log(isPuzzleCompleted(data));
+  // }, [data]);
+
+  const puzzleCompleted = isPuzzleCompleted(data);
 
   // -----------------------------------------------------------------------------------------------------------------------
   if (isLoading) {
@@ -133,7 +165,8 @@ const PageDaily = () => {
         </View>
         {/* <DailyInfoCard></DailyInfoCard> */}
       </ScrollView>
-      <DailyPlay></DailyPlay>
+      {/* only show if pidtoday is the same as the pid in data */}
+      {PIDToday === data.PID && <DailyPlay puzzleCompleted={puzzleCompleted}></DailyPlay>}
     </View>
   );
 };

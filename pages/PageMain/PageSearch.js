@@ -16,6 +16,7 @@ import ModalAlertGeneric from "../../components/Modal/ModalAlertGeneric";
 import api from "../../api/api";
 import { useAuthUser } from "../../components/Auth/AuthUserContext";
 import LoadingIndicator from "../../components/UI/LoadingIndicator";
+import delay from "../../utils/PID/delay";
 
 // -----------------------------------------------------------------------------------------------------------------------
 const PageSearch = () => {
@@ -28,11 +29,14 @@ const PageSearch = () => {
   });
   const [requestUID, setRequestUID] = useState(null);
   const { uid } = useAuthUser();
+  const [isLoading, setIsLoading] = useState(false);
 
   // --------------------------------------------------------------
   // use effect for modal if requestUID is set then show modal
   const checkFriendStatus = async (friendUID) => {
     try {
+      // await delay(2000);
+
       const response = await api.get(`/friend/${uid}/request?UIDF=${friendUID}`);
       const friendData = response.data[0];
 
@@ -81,18 +85,23 @@ const PageSearch = () => {
     }
   };
 
+  // ---------------------------------------------------------------------------------------------------------------------
   useEffect(() => {
     if (requestUID) {
-      checkFriendStatus(requestUID).then(({ title, description }) => {
-        setModalInfo({ title, description, isVisible: true });
-      });
-      // reset requestUID
-      setRequestUID(null);
+      checkFriendStatus(requestUID)
+        .then(({ title, description }) => {
+          setModalInfo({ title, description, isVisible: true });
+        })
+        .finally(() => {
+          setIsLoading(false);
+          setRequestUID(null);
+        });
     }
   }, [requestUID]);
 
   const handlePress = (item) => {
-    setRequestUID(item.uid);
+    setIsLoading(true);
+    setRequestUID(item.UID);
   };
 
   // --------------------------------------------------------------
@@ -126,6 +135,11 @@ const PageSearch = () => {
   useEffect(() => {
     searchUsers(searchValue);
   }, [searchValue, searchUsers]);
+
+  // --------------------------------------------------------------
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   // --------------------------------------------------------------
   return (

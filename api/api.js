@@ -12,8 +12,8 @@ import { getAuth } from "firebase/auth";
 
 const api = axios.create({
   // baseURL: "http://localhost:3000/api",
-  // baseURL: "http://192.168.0.106:3000/api",
-  baseURL: "https://strandbyme-api-prod.vercel.app/api",
+  baseURL: "http://192.168.0.106:3000/api",
+  // baseURL: "https://strandbyme-api-prod.vercel.app/api",
 });
 
 // -----------------------------------------------------------------------------------------------------------------------
