@@ -7,14 +7,10 @@ import {
   ScrollView,
 } from "react-native";
 import theme from "../../../data/theme.json";
-import AccountSecondaryButtonFooter from "../../../components/Account/AccountSecondaryButtonFooter";
-import { useNavigation } from "@react-navigation/native";
 import Spacer from "../../../components/UI/Spacer";
 
 // -----------------------------------------------------------------------------------------------------------------------
 const PageAccountName = ({}) => {
-  const navigation = useNavigation();
-
   return (
     <View style={styles.containerMain}>
       <ScrollView style={styles.contentContainer} showsVerticalScrollIndicator={false}>
@@ -34,13 +30,13 @@ const PageAccountName = ({}) => {
           solving times compare. Challenge each other to improve and celebrate your
           achievements together.
         </Text>
-        <Text style={styles.featureDescription}>
+        {/* <Text style={styles.featureDescription}>
           For the competitive solvers, Strand offers a dynamic leaderboard. Climb the
           ranks as you improve your times, check out detailed statistics, and see who
           claims the top spot among your friends. Whether you're aiming for personal
           improvement or friendly competition, Strand provides the tools to track your
           progress and celebrate your Strands solving journey.
-        </Text>
+        </Text> */}
 
         <Text style={styles.additionalInfo}>Made with ❤️ ☕ 🎾 by Varin</Text>
         <Text style={styles.version}>Version 1.0.0</Text>
@@ -67,14 +63,15 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 18,
     marginBottom: 24,
-    textAlign: "center",
+    lineHeight: 24,
+    textAlign: "left",
     fontWeight: "600",
     letterSpacing: theme.letterSpacing.tight,
   },
   featureDescription: {
     fontSize: 16,
     marginBottom: 20,
-    lineHeight: 24,
+    lineHeight: 20,
     letterSpacing: theme.letterSpacing.tight,
   },
   additionalInfo: {

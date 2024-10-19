@@ -57,6 +57,11 @@ const DataAccountMainMenu = () => {
         //   page: "AccountReportIssue",
         // },
         {
+          id: "help_FAQs",
+          title: "FAQs",
+          page: "AccountFAQs",
+        },
+        {
           id: "help_about",
           title: "About",
           page: "AccountAbout",
