@@ -61,7 +61,7 @@ const PageAccountLocation = ({}) => {
     try {
       setLoading(true);
       const attributesToUpdate = {
-        UserLocationCountry: inputCountry,
+        UserLocationCountry: inputCountry.trim(),
       };
       await api.put(`/user/${uid}`, attributesToUpdate);
       navigation.goBack();

@@ -58,8 +58,8 @@ const PageAccountName = ({}) => {
     try {
       setLoading(true);
       const attributesToUpdate = {
-        UserFirstName: inputFirstNameValue,
-        UserLastName: inputLastNameValue,
+        UserFirstName: inputFirstNameValue.trim(),
+        UserLastName: inputLastNameValue.trim(),
       };
       await api.put(`/user/${uid}`, attributesToUpdate);
       navigation.goBack();

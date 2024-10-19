@@ -127,6 +127,11 @@ const PageSignUp = () => {
       // add SignupCompleted
       dataObject.SignupCompleted = "true";
 
+      // clean up textinput by str trim
+      dataObject.UserFirstName = dataObject.UserFirstName.trim();
+      dataObject.UserLastName = dataObject.UserLastName.trim();
+      dataObject.UserLocationCountry = dataObject.UserLocationCountry.trim();
+
       // use data hook to prepare object with user data
       await api.put(`/user/${uid}`, dataObject);
       // navigate to onboarding guide

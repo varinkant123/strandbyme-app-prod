@@ -16,6 +16,7 @@ import * as Sentry from "@sentry/react-native";
 // Docs;
 // https://docs.expo.dev/guides/using-sentry/
 // https://docs.sentry.io/platforms/react-native/manual-setup/expo/
+// https://docs.sentry.io/platforms/javascript/configuration/options/
 //
 // Issues;
 // https://github.com/expo/sentry-expo/issues/368
@@ -31,10 +32,14 @@ Sentry.init({
   // with Sentry integration. It's typically set to false in production.
   // debug: __DEV__,
 
+  // Use __DEV__ to determine if it's a development build and then only log to sentry if not in development
+  enabled: !__DEV__,
+
   // enableInExpoDevelopment: If true, Sentry will capture and send events
   // even when running in Expo development mode (e.g., in Expo Go or dev builds).
   // By default, Sentry doesn't send events in Expo dev environments to reduce noise.
-  enableInExpoDevelopment: false,
+  // enableInExpoDevelopment: false,
+
   tracesSampleRate: 1.0,
   _experiments: {
     // profilesSampleRate is relative to tracesSampleRate.
