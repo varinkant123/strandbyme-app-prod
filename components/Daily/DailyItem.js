@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   timeText: {
-    fontWeight: "600",
+    fontWeight: "800",
     fontSize: theme.fontSizes.xs,
     width: 48,
     textAlign: "right",

@@ -6,12 +6,7 @@ const DailyHeader = ({ item }) => {
   return (
     <View style={styles.containerMain}>
       <Text style={styles.subheader}>Leaderboard</Text>
-      <View style={styles.iconContainer}>
-        <View style={styles.iconContainerHint}></View>
-        <View style={styles.iconContainerTime}>
-          <Text style={styles.label}>Time</Text>
-        </View>
-      </View>
+      <Text style={styles.subheaderLower}>Mins</Text>
     </View>
   );
 };
@@ -22,48 +17,25 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
 
-  iconContainer: {
-    flexDirection: "row",
-  },
-
   subheader: {
     fontSize: theme.fontSizes.sm,
     color: theme.colors.text,
     fontWeight: "700",
     letterSpacing: theme.letterSpacing.tight,
-    marginBottom: 12,
+    marginBottom: 18,
     textAlign: "left",
     opacity: 0.4,
   },
 
-  iconContainerTime: {
-    width: 48,
-    justifyContent: "flex-end",
-    flexDirection: "row",
-  },
-  iconContainerHint: {
-    width: 32,
-    justifyContent: "flex-end",
-    flexDirection: "row",
-  },
-  // icon: {
-  //   color: theme.colors.text,
-  //   fontWeight: "700",
-  //   opacity: 0.4,
-  //   textAlign: "right",
-  // },
-  emojiImage: {
-    width: 16,
-    height: 16,
-  },
-  label: {
-    marginTop: 4,
-    fontSize: 12,
+  subheaderLower: {
+    fontSize: theme.fontSizes.xs,
+    color: theme.colors.text,
     fontWeight: "700",
     letterSpacing: theme.letterSpacing.tight,
+    marginTop: 4,
+    marginBottom: 18,
+    textAlign: "left",
     opacity: 0.4,
-    fontWeight: "700",
-    textAlign: "center",
   },
 });
 

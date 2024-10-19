@@ -14,6 +14,7 @@ import { useAuthUser } from "../../components/Auth/AuthUserContext";
 import LoadingIndicator from "../../components/UI/LoadingIndicator";
 import { useNavigation } from "@react-navigation/native";
 import ShadowLineSeperator from "../../components/UI/ShadowLineSeperator";
+import DailyHeader from "../../components/Daily/DailyHeader";
 
 // -----------------------------------------------------------------------------------------------------------------------
 // using the useQuery hook to get the data from the api
@@ -151,8 +152,9 @@ const PageDaily = () => {
           handlePressNext={handlePressNext}
         ></DailyCustomInput>
         <ShadowLineSeperator></ShadowLineSeperator>
+
         <View style={styles.listOuterContainer}>
-          {/* <DailyHeader></DailyHeader> */}
+          <DailyHeader></DailyHeader>
           {data && data.Leaderboard && (
             <FlatList
               data={data.Leaderboard}
