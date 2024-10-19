@@ -30,7 +30,7 @@ function getDaysDifferenceFromOct20() {
 
 export const getPIDOnDevice = () => {
   const diffInDays = getDaysDifferenceFromOct20();
-  const PIDNumber = diffInDays + 230;
+  const PIDNumber = diffInDays + 231;
   const PIDNumberPadded = PIDNumber.toString().padStart(5, "0");
   const PIDFormatted = `S${PIDNumberPadded}`;
   return PIDFormatted;
