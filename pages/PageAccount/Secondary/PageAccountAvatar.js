@@ -5,6 +5,7 @@ import {
   TouchableWithoutFeedback,
   ActivityIndicator,
   Keyboard,
+  Alert,
 } from "react-native";
 import theme from "../../../data/theme.json";
 import AccountSecondaryButtonFooter from "../../../components/Account/AccountSecondaryButtonFooter";
