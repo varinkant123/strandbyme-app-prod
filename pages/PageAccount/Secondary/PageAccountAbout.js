@@ -18,12 +18,14 @@ const PageAccountName = ({}) => {
           Welcome to Strand By Me, your ultimate companion for the New York Times Strands
           puzzle!
         </Text>
+        <View style={styles.seperator}></View>
         <Text style={styles.featureDescription}>
           Strand enhances your Strands puzzle experience by automatically tracking the
           time you spend solving each puzzle. Play through our web browser interface while
           we quietly log your solving times, allowing you to focus entirely on the
           challenge at hand.
         </Text>
+        <View style={styles.seperator}></View>
         <Text style={styles.featureDescription}>
           But Strand is more than just a timer - it's a social platform for puzzle
           enthusiasts. Invite your friends to join the Strand community and see how your
@@ -62,7 +64,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 18,
-    marginBottom: 24,
+    // marginBottom: 24,
     lineHeight: 24,
     textAlign: "left",
     fontWeight: "600",
