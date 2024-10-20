@@ -17,6 +17,7 @@
       }
     },
     "preview": {
+      "channel": "preview",
       "distribution": "internal",
       "env": {
         "EXPO_PUBLIC_FIREBASE_apiKey": "AIzaSyCZr_9WfNE4xthzmUFDkCxLPTV-nc7gLsw",
@@ -29,6 +30,7 @@
       }
     },
     "production": {
+      "channel": "production",
       "distribution": "store",
       "ios": {
         "resourceClass": "m-medium"

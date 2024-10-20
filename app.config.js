@@ -5,6 +5,12 @@ const config = {
     name: "Strand By Me",
     slug: "app",
     version: "1.0.0",
+    updates: {
+      url: "https://u.expo.dev/5de1430c-62f1-46c9-8712-281eb79bc7ff",
+    },
+    runtimeVersion: {
+      policy: "appVersion",
+    },
     orientation: "portrait",
     icon: "./assets/logo/logo-5-1024.png",
     userInterfaceStyle: "light",
