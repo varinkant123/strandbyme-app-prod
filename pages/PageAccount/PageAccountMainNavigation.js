@@ -10,7 +10,7 @@ import PageAccountAvatar from "./Secondary/PageAccountAvatar";
 import PageAccountFriends from "./Secondary/PageAccountFriends";
 import PageAccountAbout from "./Secondary/PageAccountAbout";
 import PageAccountFAQs from "./Secondary/PageAccountFAQs";
-// import PageAccountReportIssue from "./Secondary/PageAccountReportIssue";
+import PageAccountReportIssue from "./Secondary/PageAccountReportIssue";
 
 // -----------------------------------------------------------------------------------------------------------------------
 const PageAccountMainNavigation = ({ route }) => {
@@ -44,11 +44,11 @@ const PageAccountMainNavigation = ({ route }) => {
         component={PageAccountFriends}
         options={secondaryScreenOptions("Friends", true, "modal")}
       />
-      {/* <AccountStack.Screen
+      <AccountStack.Screen
         name="AccountReportIssue"
         component={PageAccountReportIssue}
         options={secondaryScreenOptions("Report Issue", true, "modal")}
-      /> */}
+      />
       <AccountStack.Screen
         name="AccountFAQs"
         component={PageAccountFAQs}

@@ -41,7 +41,7 @@ const PageAccountName = ({}) => {
         </Text> */}
 
         <Text style={styles.additionalInfo}>Made with ❤️ ☕ 🎾 by Varin</Text>
-        <Text style={styles.version}>Version 1.0.0</Text>
+        <Text style={styles.version}>Version 1.0.1</Text>
         <Spacer height={40} />
       </ScrollView>
     </View>
@@ -72,24 +72,29 @@ const styles = StyleSheet.create({
   },
   featureDescription: {
     fontSize: 16,
-    marginBottom: 20,
     lineHeight: 20,
     letterSpacing: theme.letterSpacing.tight,
   },
   additionalInfo: {
     fontSize: 16,
-    marginTop: 24,
-    marginBottom: 16,
+    marginTop: 60,
+    marginBottom: 8,
     fontWeight: "600",
     textAlign: "center",
     letterSpacing: theme.letterSpacing.tight,
   },
   version: {
     fontSize: 14,
-    marginTop: 20,
+    marginTop: 12,
     textAlign: "center",
     opacity: 0.5,
     letterSpacing: theme.letterSpacing.tight,
+  },
+  seperator: {
+    width: "100%",
+    height: 1,
+    // backgroundColor: theme.colors.gray.T100,
+    marginBottom: 18,
   },
 });
 

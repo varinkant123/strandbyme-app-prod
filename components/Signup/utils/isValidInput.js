@@ -26,6 +26,11 @@ const isValidInput = (id, value) => {
     return false;
   }
 
+  // add a generic to check if valud text -
+  function isValidText(text) {
+    return text !== null && text !== undefined && text.trim().length > 0;
+  }
+
   // Handle different validation rules based on id
   switch (id) {
     case "UserFirstName":
@@ -36,6 +41,8 @@ const isValidInput = (id, value) => {
       return isValidCountry(value);
     case "UserAvatar":
       return isValidAvatar(value);
+    case "GenericText":
+      return isValidText(value);
     default:
       return true;
   }

@@ -51,11 +51,7 @@ const DataAccountMainMenu = () => {
         //   title: "Invite",
         //   page: "PageAccountInvite",
         // },
-        // {
-        //   id: "help_report_problem",
-        //   title: "Report Issue",
-        //   page: "AccountReportIssue",
-        // },
+
         {
           id: "help_FAQs",
           title: "FAQs",
@@ -65,6 +61,11 @@ const DataAccountMainMenu = () => {
           id: "help_about",
           title: "About",
           page: "AccountAbout",
+        },
+        {
+          id: "help_report_problem",
+          title: "Report Issue",
+          page: "AccountReportIssue",
         },
       ],
     },
